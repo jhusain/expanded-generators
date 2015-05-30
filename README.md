@@ -47,13 +47,15 @@ function* push(genF) {
         return;
       }
       if (next.await) {
+        // could be Promise from await or Observable from for*
         observable = Observable.from(next.value);
         subscription = observable[Symbol.observer]({
-          // next is body of for*(...on...), yields
+          // next is body of for*(...on...), yields 
           throw(e) {
             generator.throw(e);
           },
           return(v) {
+            // executed if there's a break statement
           });
       }
       else if(next.done) {
