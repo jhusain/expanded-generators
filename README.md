@@ -10,3 +10,20 @@ async function getStockPrice(name){
 }
 ```
 
+```JavaScript
+@push function* getStockPrices(name) {
+  let symbol = await getSymbol(name),
+    retryCount = 0;
+
+  while(retryCount < 3){
+    try {
+      for*(let price on new Websocket('/' + symbol + '/prices')) {
+        yield price;
+      }
+    }
+    catch(e) {
+      console.error(e);
+    }
+  }
+}
+```
